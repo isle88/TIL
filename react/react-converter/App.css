@@ -1,0 +1,16 @@
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  color: "$blue-700";
+}
+
+.btn-outline-primary {
+  margin: 10px;
+}
+
+.h1 {
+  padding-top: 60px;
+  padding-bottom: 30px;
+}

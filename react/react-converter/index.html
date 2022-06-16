@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <link href="./App.css" rel="stylesheet" />
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+    crossorigin="anonymous"
+  />
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    function MinutesToHours() {
+      const [amount, setAmount] = React.useState(0);
+      const [inverted, setInverted] = React.useState(false);
+      const onChange = (e) => {
+        setAmount(e.target.value);
+      };
+      const reset = () => setAmount(0);
+      const onInvert = () => {
+        reset();
+        setInverted((current) => !current);
+      };
+      return (
+        <div class="form-row text-center">
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">
+              Minutes
+            </span>
+            <input
+              value={inverted ? amount * 60 : amount}
+              id="minutes"
+              placeholder="Minutes"
+              type="number"
+              class="form-control"
+              aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-default"
+              onChange={onChange}
+              disabled={inverted === true}
+            />
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">
+              Hours
+            </span>
+            <input
+              value={inverted ? amount : Math.round(amount / 60)}
+              id="hours"
+              placeholder="Hours"
+              type="number"
+              class="form-control"
+              aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-default"
+              disabled={inverted === false}
+              onChange={onChange}
+            />
+          </div>
+          <button type="button" class="btn btn-outline-primary" onClick={reset}>
+            Reset
+          </button>
+          <button
+            type="button"
+            class="btn btn-outline-primary"
+            onClick={onInvert}
+          >
+            {inverted ? "Turn back" : "Invert"}
+          </button>
+        </div>
+      );
+    }
+
+    function KmtoMiles() {
+      const [amount, setAmount] = React.useState(0);
+      const [inverted, setInverted] = React.useState(false);
+      const onChange = (e) => {
+        setAmount(e.target.value);
+      };
+      const onClick = () => {
+        setAmount(0);
+      };
+
+      const onInverted = () => {
+        setAmount(0);
+        setInverted((current) => !inverted);
+      };
+      return (
+        <div class="form-row text-center">
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">
+              Km
+            </span>
+            <input
+              id="km"
+              placeholder="Km"
+              type="number"
+              class="form-control"
+              aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-default"
+              onChange={onChange}
+              value={inverted ? Math.round(amount * 1.609) : amount}
+              disabled={inverted === true}
+            />
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">
+              Miles
+            </span>
+            <input
+              id="miles"
+              placeholder="Miles"
+              type="number"
+              class="form-control"
+              aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-default"
+              onChange={onChange}
+              value={!inverted ? Math.round(amount / 1.609) : amount}
+              disabled={inverted === false}
+            />
+          </div>
+          <button
+            type="button"
+            class="btn btn-outline-primary"
+            onClick={onClick}
+          >
+            Reset
+          </button>
+          <button
+            type="button"
+            class="btn btn-outline-primary"
+            onClick={onInverted}
+          >
+            {inverted ? "Turn back" : "Invert"}
+          </button>
+        </div>
+      );
+    }
+
+    function App() {
+      const [index, setIndex] = React.useState("xx");
+      const onSelect = (event) => {
+        setIndex(event.target.value);
+      };
+      return (
+        <div class="form-row text-center">
+          <p class="h1 text-primary">Super Converter</p>
+          <select
+            class="form-select form-select-sm"
+            aria-label=".form-select-sm example"
+            value={index}
+            onChange={onSelect}
+          >
+            <option value="xx">---Select units---</option>
+            <option value="0">Minutes & Hours</option>
+            <option value="1">Km & Miles</option>
+          </select>
+          <hr />
+          {index === "xx" ? <p class="lead text-info">Please select your units</p> : null}
+          {index === "0" ? <MinutesToHours /> : null}
+          {index === "1" ? <KmtoMiles /> : null}
+        </div>
+      );
+    }
+    const root = document.getElementById("root");
+    ReactDOM.render(<App />, root);
+  </script>
+</html>
