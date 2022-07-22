@@ -1,0 +1,28 @@
+3 ways of importing component
+
+1. Using Import
+    import HomeView from '../views/HomeView.vue'
+    const routes = [
+      {
+        path: '/',
+        name: 'home',
+        component: HomeView
+      }]
+ 
+ 2. Import on component (1)
+      const routes = [
+      {
+        path: '/',
+        name: 'home',
+        component:  import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+     }]
+ 
+ 3. Import on component (2)
+     const routes = [
+      {
+        path: '/',
+        name: 'home',
+        component:  import(/* webpackChunkName: "about" , webpackPrefetch:true */ '../views/AboutView.vue')
+     }]
+
+=> prefetch component before clicking. it is useful when the component is heavy or needs to save time for component rendering
