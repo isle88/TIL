@@ -8,21 +8,21 @@
         name: 'home',
         component: HomeView
       }]
+    => Code compiles on app.js file.
  
- 2. Import on component (1)
-      const routes = [
-      {
-        path: '/',
-        name: 'home',
-        component:  import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-     }]
+ 2. Import on component
+    => generates a separate chunk (about.[hash].js) for this route, lazy-loaded when the route is visited.
+          (1) const routes = [
+              {
+                path: '/',
+                name: 'home',
+                component:  import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+          }]
  
- 3. Import on component (2)
-     const routes = [
-      {
-        path: '/',
-        name: 'home',
-        component:  import(/* webpackChunkName: "about" , webpackPrefetch:true */ '../views/AboutView.vue')
-     }]
-
-=> prefetch component before clicking. it is useful when the component is heavy or needs to save time for component rendering
+         (2) const routes = [
+          {
+            path: '/',
+            name: 'home',
+            component:  import(/* webpackChunkName: "about" , webpackPrefetch:true */ '../views/AboutView.vue')
+         }]
+    => prefetch component before clicking. it is useful when the component is heavy or needs to save time for component rendering
