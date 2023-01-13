@@ -1,0 +1,24 @@
+이진수를 의미하는 두 개의 문자열 bin1과 bin2가 매개변수로 주어질 때, 두 이진수의 합을 return하도록 solution 함수를 완성해주세요.
+
+bin1	bin2	result
+"10"	"11"	"101"
+"1001"	"1111"	"11000"
+
+----------------------------------------------------------------------
+function solution(bin1, bin2) { 
+    let answer = ''
+    let bin1_10 = [...bin1].map((n) => Number(n)).reduce((acc, cur) => acc * 2 + cur, 0)
+    let bin2_10 = [...bin2].map((n) => Number(n)).reduce((acc, cur) => acc * 2 + cur, 0)
+    let sum = bin1_10 + bin2_10
+    
+    while(sum >= 2) {
+        sum % 2 === 0 ? answer += '0' : answer += '1'
+        sum = Math.floor(sum / 2)
+    }
+    answer += sum
+    return [...answer].reverse().join('')
+}
+
+function solution(bin1, bin2) {
+    return (parseInt(bin1, 2) + parseInt(bin2, 2)).toString(2)
+}
