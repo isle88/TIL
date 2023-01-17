@@ -1,0 +1,22 @@
+한 개 이상의 항의 합으로 이루어진 식을 다항식이라고 합니다. 다항식을 계산할 때는 동류항끼리 계산해 정리합니다. 
+덧셈으로 이루어진 다항식 polynomial이 매개변수로 주어질 때, 동류항끼리 더한 결괏값을 문자열로 return 하도록 solution 함수를 완성해보세요. 
+같은 식이라면 가장 짧은 수식을 return 합니다.
+
+polynomial	result
+"3x + 7 + x"	"4x + 7"
+"x + x + x"	"3x"
+
+------------------------------------------------------------------
+function solution(polynomial) {
+   const arr = polynomial.split(" + ")
+     let x = arr
+            .filter((el) => el.includes('x'))
+            .map(el => el === 'x' ? el.replace('x', '1'): el)
+            .reduce((acc, cur) => acc + parseInt(cur, 10), 0)
+     let num = arr
+            .filter((el) => Number(el))
+            .reduce((acc, cur) => acc + Number(cur), 0)
+     
+    x === 0 ? x = 0 : x === 1? x = 'x' : x +='x'
+    return num === 0 ? `${x}` : num > 0 && x !== 0 ? `${x} + ${num}` : `${num}`
+}
